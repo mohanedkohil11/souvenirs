@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id           String    @id @default(cuid())
+  name         String    @unique
+  description  String?
+  image        String?
+  productCount Int       @default(0)
+  featured     String[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  products     Product[]
+}
+
+model Product {
+  id              String                 @id @default(cuid())
+  name            String
+  price           Float
+  originalPrice   Float?
+  discount        Int?
+  description     String?
+  fullDescription String?
+  image           String?
+  rating          Float                  @default(0)
+  reviews         Int                    @default(0)
+  inStock         Boolean                @default(true)
+  quantity        Int                    @default(0)
+  sales           Int                    @default(0)
+  isFeatured      Boolean                @default(false)
+  isBestSeller    Boolean                @default(false)
+  isFlashSale     Boolean                @default(false)
+  categoryId      String
+  category        Category               @relation(fields: [categoryId], references: [id])
+  specifications  ProductSpecification[]
+  orderItems      OrderItem[]
+  createdAt       DateTime               @default(now())
+  updatedAt       DateTime               @updatedAt
+}
+
+model ProductSpecification {
+  id        String  @id @default(cuid())
+  label     String
+  value     String
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  orderNumber String    @unique
+  status    OrderStatus @default(PENDING)
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  address        String
+  city           String     @default("Hurghada")
+  deliveryPeriod String     @default("morning")
+  subtotal  Float
+  shipping  Float       @default(10)
+  tax       Float
+  total     Float
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  name      String
+  price     Float
+  quantity  Int
+  image     String?
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
