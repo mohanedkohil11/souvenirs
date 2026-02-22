@@ -19,7 +19,7 @@ export default function CategoryCircles({ categories }: { categories: CategoryCi
               <Link
                 key={category.id}
                 href={`/categories?cat=${category.id}`}
-                className="group flex flex-col items-center gap-2 transition-transform duration-300 hover:scale-110 flex-shrink-0"
+                className="group flex flex-col items-center gap-2 transition-transform duration-300 hover:scale-110 shrink-0"
               >
                 <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-border group-hover:border-primary transition-colors duration-300 shadow-md group-hover:shadow-lg group-hover:shadow-primary/20">
                   <Image
