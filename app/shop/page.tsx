@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { getProducts, getCategoryNames } from "@/lib/data"
 import ShopClient from "@/components/shop-client"
 

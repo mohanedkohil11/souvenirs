@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import Header from "@/components/header"
@@ -44,6 +44,30 @@ export default function ProductDetailClient({
   const [quantity, setQuantity] = useState(1)
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
+
+  const viewLogged = useRef(false)
+  useEffect(() => {
+    if (viewLogged.current) return
+    viewLogged.current = true
+
+    const VIEWED_KEY = "souvenir-stories-viewed"
+    try {
+      const viewed: string[] = JSON.parse(localStorage.getItem(VIEWED_KEY) || "[]")
+      if (viewed.includes(product.id)) return
+      fetch("/api/views", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: product.id }),
+      })
+        .then(() => {
+          viewed.push(product.id)
+          localStorage.setItem(VIEWED_KEY, JSON.stringify(viewed))
+        })
+        .catch(() => {})
+    } catch {
+      // localStorage unavailable
+    }
+  }, [product.id])
 
   const handleAddToCart = () => {
     addItem({ id: product.id, name: product.name, price: product.price, image: product.image }, quantity)

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Pencil, Trash2, Search } from "lucide-react"
+import { Plus, Pencil, Trash2, Search, Eye, RotateCcw } from "lucide-react"
 import { toast } from "sonner"
 
 type Product = {
@@ -19,6 +19,7 @@ type Product = {
   isBestSeller: boolean
   isFlashSale: boolean
   category: { name: string }
+  _count: { views: number }
 }
 
 export default function ProductsListPage() {
@@ -36,6 +37,22 @@ export default function ProductsListPage() {
   useEffect(() => {
     fetchProducts()
   }, [])
+
+  const handleResetViews = async (id: string, name: string) => {
+    if (!confirm(`Reset view counter for "${name}"?`)) return
+
+    const res = await fetch("/api/views", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId: id }),
+    })
+    if (res.ok) {
+      toast.success("Views reset")
+      fetchProducts()
+    } else {
+      toast.error("Failed to reset views")
+    }
+  }
 
   const handleDelete = async (id: string, name: string) => {
     if (!confirm(`Are you sure you want to delete "${name}"?`)) return
@@ -96,6 +113,7 @@ export default function ProductsListPage() {
                 <th className="text-left p-4 font-medium text-muted-foreground">Price</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Status</th>
                 <th className="text-left p-4 font-medium text-muted-foreground">Tags</th>
+                <th className="text-left p-4 font-medium text-muted-foreground">Views</th>
                 <th className="text-right p-4 font-medium text-muted-foreground">Actions</th>
               </tr>
             </thead>
@@ -122,6 +140,25 @@ export default function ProductsListPage() {
                       {product.isFeatured && <Badge variant="outline" className="text-xs">Featured</Badge>}
                       {product.isBestSeller && <Badge variant="outline" className="text-xs">Best Seller</Badge>}
                       {product.isFlashSale && <Badge variant="outline" className="text-xs text-red-600">Flash Sale</Badge>}
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1.5 text-muted-foreground">
+                        <Eye className="w-4 h-4" />
+                        <span className="font-medium text-foreground">{product._count.views}</span>
+                      </div>
+                      {product._count.views > 0 && (
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 w-6 p-0 text-muted-foreground hover:text-red-500"
+                          onClick={() => handleResetViews(product.id, product.name)}
+                          title="Reset views"
+                        >
+                          <RotateCcw className="w-3 h-3" />
+                        </Button>
+                      )}
                     </div>
                   </td>
                   <td className="p-4">

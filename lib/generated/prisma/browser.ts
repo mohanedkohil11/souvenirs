@@ -42,3 +42,8 @@ export type Order = Prisma.OrderModel
  * 
  */
 export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model ProductView
+ * 
+ */
+export type ProductView = Prisma.ProductViewModel

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Package, FolderOpen, ShoppingCart, DollarSign, Star, TrendingUp } from "lucide-react"
 import { getProductCount, getCategoryCount } from "@/lib/data"

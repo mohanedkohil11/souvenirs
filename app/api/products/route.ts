@@ -4,7 +4,10 @@ import { prisma } from "@/lib/prisma"
 export async function GET() {
   const products = await prisma.product.findMany({
     orderBy: { createdAt: "desc" },
-    include: { category: true },
+    include: {
+      category: true,
+      _count: { select: { views: true } },
+    },
   })
   return NextResponse.json(products)
 }
