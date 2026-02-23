@@ -7,21 +7,21 @@ const testimonials = [
     location: "New York, USA",
     rating: 5,
     text: "The quality of these souvenirs is exceptional! Each piece feels authentic and brings back wonderful memories of my travels.",
-    image: "/woman-portrait.png",
+    image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/woman-portrait.png",
   },
   {
     name: "Marco Rossi",
     location: "Milan, Italy",
     rating: 5,
     text: "I've purchased from Souvenir Stories multiple times. The attention to detail and customer service is outstanding.",
-    image: "/thoughtful-man-portrait.png",
+    image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/thoughtful-man-portrait.png",
   },
   {
     name: "Yuki Tanaka",
     location: "Tokyo, Japan",
     rating: 5,
     text: "These souvenirs make perfect gifts! My friends loved the items I brought back. Highly recommended!",
-    image: "/asian-woman-portrait.png",
+    image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/asian-woman-portrait.png",
   },
 ]
 

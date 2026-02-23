@@ -31,19 +31,19 @@ export default function AboutPage() {
     {
       name: "Sarah Chen",
       role: "Founder & CEO",
-      image: "/woman-portrait.png",
+      image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/woman-portrait.png",
       bio: "Travel enthusiast with 10+ years of experience in Egyptian trade.",
     },
     {
       name: "Marco Rossi",
       role: "Head of Sourcing",
-      image: "/thoughtful-man-portrait.png",
+      image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/thoughtful-man-portrait.png",
       bio: "Expert in connecting with Egyptian artisans and ensuring product authenticity.",
     },
     {
       name: "Yuki Tanaka",
       role: "Customer Experience",
-      image: "/asian-woman-portrait.png",
+      image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/asian-woman-portrait.png",
       bio: "Dedicated to making every customer journey memorable and smooth.",
     },
   ]
@@ -81,7 +81,7 @@ export default function AboutPage() {
               </div>
               <div className="h-96 bg-muted rounded-2xl overflow-hidden">
                 <img
-                  src="/travel-souvenirs-collection-display.jpg"
+                  src="https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/travel-souvenirs-collection-display.jpg"
                   alt="Our collection"
                   className="w-full h-full object-cover"
                 />

@@ -10,7 +10,7 @@ const testimonials = [
     role: "Travel Enthusiast",
     content:
       "The quality and authenticity of these souvenirs are exceptional. Each piece tells a story of Egypt's rich heritage.",
-    image: "/woman-avatar.png",
+    image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/woman-avatar.png",
     rating: 5,
   },
   {
@@ -19,7 +19,7 @@ const testimonials = [
     role: "Cultural Collector",
     content:
       "I've purchased from many souvenir shops, but Souvenir Stories stands out for their commitment to authenticity and craftsmanship.",
-    image: "/man-avatar.png",
+    image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/man-avatar.png",
     rating: 5,
   },
   {
@@ -28,7 +28,7 @@ const testimonials = [
     role: "Gift Buyer",
     content:
       "Perfect gifts for friends and family. The packaging is beautiful and the items arrived in perfect condition.",
-    image: "/woman-avatar-2.png",
+    image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/woman-avatar-2.png",
     rating: 5,
   },
 ]

@@ -7,11 +7,11 @@ export default function Hero3D() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const heroImages = [
-    "/travel-souvenirs-collection-display.jpg",
-    "/egyptian-traditional-crafts.jpg",
-    "/egyptian-spice-market.jpg",
-    "/egyptian-jewelry-collection.jpg",
-    "/egyptian-home-decor.jpg",
+    "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/travel-souvenirs-collection-display.jpg",
+    "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/egyptian-traditional-crafts.jpg",
+    "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/egyptian-spice-market.jpg",
+    "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/egyptian-jewelry-collection.jpg",
+    "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/egyptian-home-decor.jpg",
   ]
 
   useEffect(() => {
