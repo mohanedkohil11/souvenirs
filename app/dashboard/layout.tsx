@@ -3,7 +3,22 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { LayoutDashboard, Package, FolderOpen, ShoppingCart, LogOut, Store } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarInset,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarRail,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
+import { Separator } from "@/components/ui/separator"
 
 const navItems = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
@@ -27,53 +42,79 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="min-h-screen bg-muted/30">
-      <aside className="fixed left-0 top-0 h-full w-64 bg-card border-r border-border flex flex-col z-50">
-        <div className="p-6 border-b border-border">
-          <h1 className="text-xl font-bold">Souvenir Stories</h1>
-          <p className="text-sm text-muted-foreground">Admin Dashboard</p>
-        </div>
+    <SidebarProvider>
+      <Sidebar collapsible="icon">
+        <SidebarHeader className="p-4 group-data-[collapsible=icon]:p-2 h-[68px]">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground font-bold text-sm">
+              S
+            </div>
+            <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
+              <span className="font-semibold text-sm">Souvenir Stories</span>
+              <span className="text-xs text-muted-foreground">Admin Dashboard</span>
+            </div>
+          </div>
+        </SidebarHeader>
 
-        <nav className="flex-1 p-4 space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href))
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`}
-              >
-                <item.icon className="w-5 h-5" />
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
+        <Separator />
 
-        <div className="p-4 border-t border-border space-y-2">
-          <Link
-            href="/"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-          >
-            <Store className="w-5 h-5" />
-            View Store
-          </Link>
-          <Button
-            variant="ghost"
-            className="w-full justify-start gap-3 px-4 py-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
-            onClick={handleLogout}
-          >
-            <LogOut className="w-5 h-5" />
-            Logout
-          </Button>
-        </div>
-      </aside>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navItems.map((item) => {
+                  const isActive =
+                    pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href))
+                  return (
+                    <SidebarMenuItem key={item.href}>
+                      <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>
+                        <Link href={item.href}>
+                          <item.icon />
+                          <span>{item.label}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  )
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
 
-      <main className="ml-64 p-8">{children}</main>
-    </div>
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="View Store">
+                <Link href="/">
+                  <Store />
+                  <span>View Store</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton tooltip="Logout" onClick={handleLogout}>
+                <LogOut />
+                <span>Logout</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+
+        <SidebarRail />
+      </Sidebar>
+
+      <SidebarInset>
+        <header className="flex h-[69px] shrink-0 items-center gap-2 border-b border-border px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4!" />
+          <span className="text-sm font-medium text-muted-foreground">
+            {navItems.find(
+              (item) => pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href)),
+            )?.label ?? "Dashboard"}
+          </span>
+        </header>
+        <main className="flex-1 p-8">{children}</main>
+      </SidebarInset>
+    </SidebarProvider>
   )
 }

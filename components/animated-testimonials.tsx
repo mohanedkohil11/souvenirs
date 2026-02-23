@@ -15,7 +15,7 @@ const testimonials = [
   },
   {
     id: 2,
-    name: "Ahmed Hassan",
+    name: "Evelyn Flores",
     role: "Cultural Collector",
     content:
       "I've purchased from many souvenir shops, but Souvenir Stories stands out for their commitment to authenticity and craftsmanship.",
