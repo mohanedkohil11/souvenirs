@@ -14,7 +14,7 @@ export default function CategoryCircles({ categories }: { categories: CategoryCi
     <section className="h-40 md:h-44 px-4 bg-background border-t border-border/50 flex items-center">
       <div className="w-full max-w-7xl mx-auto">
         <div className="overflow-x-auto scrollbar-hide">
-          <div className="flex items-center gap-6 md:gap-8 min-w-max px-4 py-6">
+          <div className="flex items-center justify-center gap-6 md:gap-8 min-w-max px-4 py-6">
             {categories.map((category) => (
               <Link
                 key={category.id}

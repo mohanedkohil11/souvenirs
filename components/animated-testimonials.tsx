@@ -44,7 +44,7 @@ export default function AnimatedTestimonials() {
   }, [])
 
   return (
-    <section className="py-24 px-4 bg-background relative overflow-hidden">
+    <section className="my-24 px-4 bg-background relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
 
@@ -62,9 +62,8 @@ export default function AnimatedTestimonials() {
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.id}
-                className={`absolute inset-0 p-12 md:p-16 flex flex-col justify-center transition-all duration-700 ${
-                  index === activeIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-                }`}
+                className={`absolute inset-0 p-12 md:p-16 flex flex-col justify-center transition-all duration-700 ${index === activeIndex ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+                  }`}
               >
                 {/* Stars */}
                 <div className="flex gap-1 mb-6">
@@ -103,9 +102,8 @@ export default function AnimatedTestimonials() {
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === activeIndex ? "bg-primary w-8" : "bg-border hover:bg-primary/50"
-                }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === activeIndex ? "bg-primary w-8" : "bg-border hover:bg-primary/50"
+                  }`}
               />
             ))}
           </div>

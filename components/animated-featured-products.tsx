@@ -16,7 +16,7 @@ export default function AnimatedFeaturedProducts({ products }: { products: Featu
   const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   return (
-    <section className="py-24 px-4 bg-background relative overflow-hidden">
+    <section className="my-24 px-4 bg-background relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto">
