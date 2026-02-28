@@ -9,7 +9,6 @@ type CategoryItem = {
   name: string
   description: string | null
   image: string | null
-  productCount: number
 }
 
 export default function AnimatedCategories({ categories }: { categories: CategoryItem[] }) {
@@ -53,8 +52,7 @@ export default function AnimatedCategories({ categories }: { categories: Categor
                     <div className="transform transition-transform duration-500 group-hover:translate-y-0 translate-y-4">
                       <h3 className="text-2xl font-bold mb-2">{category.name}</h3>
                       <p className="text-sm text-gray-200 mb-4">{category.description}</p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-semibold text-primary">{category.productCount} items</span>
+                      <div className="flex items-center justify-end">
                         <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 transform group-hover:scale-110">
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

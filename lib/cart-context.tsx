@@ -22,7 +22,7 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
-const CART_KEY = "souvenir-stories-cart"
+const CART_KEY = "sedra-cart"
 
 function loadCart(): CartItem[] {
   if (typeof window === "undefined") return []

@@ -59,8 +59,8 @@ export default function ContactPage() {
           <Card className="p-8 text-center">
             <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Email</h3>
-            <a href="mailto:hello@souvenirstories.com" className="text-primary hover:underline">
-              hello@souvenirstories.com
+            <a href="mailto:hello@sedra.com" className="text-primary hover:underline">
+              hello@sedra.com
             </a>
           </Card>
 
@@ -173,8 +173,8 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-bold mb-1">Email</h3>
-                    <p className="text-muted-foreground">hello@souvenirstories.com</p>
-                    <p className="text-muted-foreground">support@souvenirstories.com</p>
+                    <p className="text-muted-foreground">hello@sedra.com</p>
+                    <p className="text-muted-foreground">support@sedra.com</p>
                   </div>
                 </div>
 

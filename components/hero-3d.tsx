@@ -56,7 +56,7 @@ export default function Hero3D() {
         <div className="max-w-2xl text-center">
           <div className="mb-4 inline-block">
             <span className="text-sm font-semibold text-primary tracking-widest uppercase">
-              Welcome to Souvenir Stories
+              Welcome to Sedra
             </span>
           </div>
 

@@ -2,14 +2,22 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
 
 export async function GET() {
-  const products = await prisma.product.findMany({
-    orderBy: { createdAt: "desc" },
-    include: {
-      category: true,
-      _count: { select: { views: true } },
-    },
-  })
-  return NextResponse.json(products)
+  try {
+    const products = await prisma.product.findMany({
+      orderBy: { createdAt: "desc" },
+      include: {
+        category: true,
+        _count: { select: { views: true } },
+      },
+    })
+    return NextResponse.json(products)
+  } catch (error) {
+    console.error("[GET /api/products]", error)
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to fetch products" },
+      { status: 500 }
+    )
+  }
 }
 
 export async function POST(request: NextRequest) {

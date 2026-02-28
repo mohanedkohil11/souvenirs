@@ -13,7 +13,6 @@ type Category = {
   name: string
   description: string | null
   image: string | null
-  productCount: number
   _count: { products: number }
 }
 

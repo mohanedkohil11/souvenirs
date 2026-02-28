@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Souvenir Stories - Authentic Travel Souvenirs",
+  title: "Sedra - Authentic Travel Souvenirs",
   description: "Discover authentic souvenirs from around the world. Bring home memories from your travels.",
   generator: "v0.app",
 }

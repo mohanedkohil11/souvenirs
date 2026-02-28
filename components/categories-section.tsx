@@ -8,7 +8,6 @@ type CategorySectionItem = {
   name: string
   description: string | null
   image: string | null
-  productCount: number
   featured: string[]
 }
 
@@ -51,8 +50,7 @@ export default function CategoriesSection({ categories }: { categories: Category
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <span className="text-xs font-medium text-muted-foreground">{category.productCount} products</span>
+                  <div className="flex items-center justify-end pt-4 border-t border-border">
                     <Button size="sm" className="bg-primary hover:bg-primary/90 gap-2">
                       Explore <ArrowRight className="w-4 h-4" />
                     </Button>

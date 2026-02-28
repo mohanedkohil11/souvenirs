@@ -51,8 +51,7 @@ export default async function CategoriesPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-border">
-                    <span className="text-sm font-medium text-muted-foreground">{category.productCount} products</span>
+                  <div className="flex items-center justify-end pt-4 border-t border-border">
                     <Button size="sm" className="bg-primary hover:bg-primary/90 gap-2">
                       Explore <ArrowRight className="w-4 h-4" />
                     </Button>

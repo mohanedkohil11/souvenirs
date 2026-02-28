@@ -21,7 +21,6 @@ async function main() {
       name: "Pharaonic Artifacts",
       description: "Ancient Egyptian-inspired pieces featuring pharaohs, hieroglyphics, and timeless designs",
       image: "/egyptian-pyramids-cairo.jpg",
-      productCount: 12,
       featured: ["Pharaoh Mug", "Papyrus Art", "Scarab Amulet"],
     },
   })
@@ -31,7 +30,6 @@ async function main() {
       name: "Cairo Crafts",
       description: "Handmade treasures from Cairo's bustling markets and local artisans",
       image: "/cairo-pyramid-keychain.jpg",
-      productCount: 18,
       featured: ["Cairo Keychain", "Brass Lantern", "Leather Goods"],
     },
   })
@@ -41,7 +39,6 @@ async function main() {
       name: "Nile Valley Textiles",
       description: "Beautiful fabrics, scarves, and woven goods inspired by the Nile Valley",
       image: "/traditional-silk-scarf-pattern.jpg",
-      productCount: 15,
       featured: ["Silk Scarf", "Cotton Tapestry", "Embroidered Cloth"],
     },
   })
@@ -51,7 +48,6 @@ async function main() {
       name: "Spice & Fragrance",
       description: "Authentic Egyptian spices, perfumes, and aromatic treasures",
       image: "/egyptian-spice-market.jpg",
-      productCount: 10,
       featured: ["Oud Perfume", "Spice Mix", "Incense Set"],
     },
   })
@@ -61,7 +57,6 @@ async function main() {
       name: "Jewelry & Accessories",
       description: "Elegant Egyptian-inspired jewelry, amulets, and decorative pieces",
       image: "/egyptian-jewelry-collection.jpg",
-      productCount: 14,
       featured: ["Gold Scarab", "Ankh Necklace", "Cartouche Bracelet"],
     },
   })
@@ -71,7 +66,6 @@ async function main() {
       name: "Home Décor",
       description: "Beautiful home accessories and décor inspired by Egyptian heritage",
       image: "/egyptian-home-decor.jpg",
-      productCount: 11,
       featured: ["Papyrus Wall Art", "Ceramic Vase", "Decorative Mirror"],
     },
   })

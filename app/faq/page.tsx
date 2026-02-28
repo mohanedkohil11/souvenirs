@@ -42,7 +42,7 @@ const faqs = [
   {
     question: "How can I contact customer support?",
     answer:
-      "You can reach our support team via email at hello@souvenirstories.com, phone at +1 (234) 567-890, or through our contact form. We typically respond within 24 hours.",
+      "You can reach our support team via email at hello@sedra.com, phone at +1 (234) 567-890, or through our contact form. We typically respond within 24 hours.",
   },
 ]
 

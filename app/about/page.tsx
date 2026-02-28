@@ -58,7 +58,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 text-balance">Our Story</h1>
             <p className="text-xl text-muted-foreground text-balance">
-              Souvenir Stories was born from a passion for Egypt and a desire to preserve the memories and rich cultural
+              Sedra was born from a passion for Egypt and a desire to preserve the memories and rich cultural
               heritage of this ancient land.
             </p>
           </div>

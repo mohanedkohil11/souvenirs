@@ -10,9 +10,9 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">SS</span>
+                <span className="text-white font-bold">S</span>
               </div>
-              <span className="font-bold text-lg">Souvenir Stories</span>
+              <span className="font-bold text-lg">Sedra</span>
             </div>
             <p className="text-slate-300 dark:text-slate-400 text-sm">
               Authentic souvenirs from around the world, bringing memories home.
@@ -79,10 +79,10 @@ export default function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
                 <a
-                  href="mailto:hello@souvenirstories.com"
+                  href="mailto:hello@sedra.com"
                   className="text-slate-300 dark:text-slate-400 hover:text-primary transition-colors"
                 >
-                  hello@souvenirstories.com
+                  hello@sedra.com
                 </a>
               </li>
               <li className="flex items-center gap-2">
@@ -104,7 +104,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="border-t border-slate-700 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 dark:text-slate-500">
-          <p>&copy; 2025 Souvenir Stories. All rights reserved.</p>
+          <p>&copy; 2025 Sedra. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="/privacy" className="hover:text-primary transition-colors">
               Privacy Policy

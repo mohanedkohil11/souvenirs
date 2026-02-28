@@ -15,7 +15,7 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-2xl font-bold mb-4">1. Introduction</h2>
               <p className="text-muted-foreground">
-                Souvenir Stories ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy
+                Sedra ("we," "us," "our," or "Company") is committed to protecting your privacy. This Privacy
                 Policy explains how we collect, use, disclose, and safeguard your information when you visit our
                 website.
               </p>
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
                 If you have questions about this Privacy Policy or our privacy practices, please contact us at:
               </p>
               <p className="text-muted-foreground mt-4">
-                Email: privacy@souvenirstories.com
+                Email: privacy@sedra.com
                 <br />
                 Address: 123 Travel Lane, Adventure City, AC 12345
               </p>

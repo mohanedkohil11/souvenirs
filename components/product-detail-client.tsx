@@ -50,7 +50,7 @@ export default function ProductDetailClient({
     if (viewLogged.current) return
     viewLogged.current = true
 
-    const VIEWED_KEY = "souvenir-stories-viewed"
+    const VIEWED_KEY = "sedra-viewed"
     try {
       const viewed: string[] = JSON.parse(localStorage.getItem(VIEWED_KEY) || "[]")
       if (viewed.includes(product.id)) return

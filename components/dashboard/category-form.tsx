@@ -14,7 +14,6 @@ type CategoryFormData = {
   name: string
   description: string
   image: string
-  productCount: number
   featured: string[]
 }
 
@@ -26,7 +25,6 @@ export default function CategoryForm({ initialData }: { initialData?: CategoryFo
   const [name, setName] = useState(initialData?.name ?? "")
   const [description, setDescription] = useState(initialData?.description ?? "")
   const [image, setImage] = useState(initialData?.image ?? "")
-  const [productCount, setProductCount] = useState(initialData?.productCount ?? 0)
   const [featured, setFeatured] = useState(initialData?.featured?.join(", ") ?? "")
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +52,6 @@ export default function CategoryForm({ initialData }: { initialData?: CategoryFo
       name,
       description,
       image,
-      productCount,
       featured: featured.split(",").map((f) => f.trim()).filter(Boolean),
     }
 
@@ -111,16 +108,6 @@ export default function CategoryForm({ initialData }: { initialData?: CategoryFo
             {image && (
               <img src={image} alt="Preview" className="w-24 h-24 rounded-lg object-cover mt-2" />
             )}
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="productCount">Display Product Count</Label>
-            <Input
-              id="productCount"
-              type="number"
-              value={productCount}
-              onChange={(e) => setProductCount(parseInt(e.target.value) || 0)}
-            />
           </div>
 
           <div className="space-y-2">

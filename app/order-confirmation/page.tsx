@@ -126,7 +126,7 @@ function OrderConfirmationContent() {
           <Card className="p-6 text-center">
             <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-4" />
             <h3 className="font-bold text-lg mb-2">Need Help?</h3>
-            <p className="text-sm text-muted-foreground">Contact our support team at hello@souvenirstories.com</p>
+            <p className="text-sm text-muted-foreground">Contact our support team at hello@sedra.com</p>
           </Card>
         </div>
 

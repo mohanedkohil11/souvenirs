@@ -18,7 +18,7 @@ const testimonials = [
     name: "Evelyn Flores",
     role: "Cultural Collector",
     content:
-      "I've purchased from many souvenir shops, but Souvenir Stories stands out for their commitment to authenticity and craftsmanship.",
+      "I've purchased from many souvenir shops, but Sedra stands out for their commitment to authenticity and craftsmanship.",
     image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/man-avatar.png",
     rating: 5,
   },

@@ -22,7 +22,6 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       name: body.name,
       description: body.description || null,
       image: body.image || null,
-      productCount: body.productCount ?? undefined,
       featured: body.featured || [],
     },
   })

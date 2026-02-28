@@ -76,7 +76,6 @@ export default async function Home() {
             name: c.name,
             description: c.description,
             image: c.image,
-            productCount: c.productCount,
           }))}
         />
 

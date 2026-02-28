@@ -13,7 +13,7 @@ const testimonials = [
     name: "Marco Rossi",
     location: "Milan, Italy",
     rating: 5,
-    text: "I've purchased from Souvenir Stories multiple times. The attention to detail and customer service is outstanding.",
+    text: "I've purchased from Sedra multiple times. The attention to detail and customer service is outstanding.",
     image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/thoughtful-man-portrait.png",
   },
   {

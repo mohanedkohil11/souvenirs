@@ -20,7 +20,6 @@ export default async function EditCategoryPage({ params }: { params: Promise<{ i
           name: category.name,
           description: category.description ?? "",
           image: category.image ?? "",
-          productCount: category.productCount,
           featured: category.featured,
         }}
       />

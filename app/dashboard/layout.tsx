@@ -50,7 +50,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               S
             </div>
             <div className="flex flex-col leading-tight group-data-[collapsible=icon]:hidden">
-              <span className="font-semibold text-sm">Souvenir Stories</span>
+              <span className="font-semibold text-sm">Sedra</span>
               <span className="text-xs text-muted-foreground">Admin Dashboard</span>
             </div>
           </div>

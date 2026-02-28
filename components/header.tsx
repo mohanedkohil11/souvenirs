@@ -25,9 +25,9 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-lg">SS</span>
+            <span className="text-white font-bold text-lg">S</span>
           </div>
-          <span className="font-bold text-xl hidden sm:inline">Souvenir Stories</span>
+          <span className="font-bold text-xl hidden sm:inline">Sedra</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
