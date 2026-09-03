@@ -252,10 +252,6 @@ export default function ProductForm({ initialData }: { initialData?: ProductForm
               <Switch checked={form.isBestSeller} onCheckedChange={(v) => update("isBestSeller", v)} />
               <Label>Best Seller</Label>
             </div>
-            <div className="flex items-center gap-3">
-              <Switch checked={form.isFlashSale} onCheckedChange={(v) => update("isFlashSale", v)} />
-              <Label>Flash Sale</Label>
-            </div>
           </div>
         </CardContent>
       </Card>

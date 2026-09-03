@@ -1,0 +1,3 @@
+export const CONTACT_PHONE = "+4368120946479"
+export const CONTACT_PHONE_DISPLAY = "+43 681 20946479"
+export const CONTACT_WHATSAPP_URL = "https://wa.me/4368120946479"

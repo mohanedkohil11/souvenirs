@@ -24,7 +24,7 @@ export default function CategoriesSection({ categories }: { categories: Category
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {categories.map((category) => (
-            <Link key={category.id} href={`/shop?category=${category.name}`}>
+            <Link key={category.id} href="/#collection">
               <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer h-full flex flex-col group">
                 <div className="relative h-48 overflow-hidden bg-muted">
                   <img

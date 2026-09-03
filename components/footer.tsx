@@ -1,11 +1,12 @@
 import Link from "next/link"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { Phone, MessageCircle } from "lucide-react"
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_WHATSAPP_URL } from "@/lib/contact"
 
 export default function Footer() {
   return (
     <footer className="bg-slate-900 dark:bg-slate-950 text-slate-100 dark:text-slate-200 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
@@ -17,34 +18,6 @@ export default function Footer() {
             <p className="text-slate-300 dark:text-slate-400 text-sm">
               Authentic souvenirs from around the world, bringing memories home.
             </p>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold mb-4">Shop</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/shop" className="text-slate-300 dark:text-slate-400 hover:text-primary transition-colors">
-                  All Products
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories"
-                  className="text-slate-300 dark:text-slate-400 hover:text-primary transition-colors"
-                >
-                  Categories
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/shop?sort=new"
-                  className="text-slate-300 dark:text-slate-400 hover:text-primary transition-colors"
-                >
-                  New Arrivals
-                </Link>
-              </li>
-            </ul>
           </div>
 
           {/* Company */}
@@ -77,26 +50,24 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4" />
+                <Phone className="w-4 h-4" />
                 <a
-                  href="mailto:hello@sedra.com"
+                  href={`tel:${CONTACT_PHONE}`}
                   className="text-slate-300 dark:text-slate-400 hover:text-primary transition-colors"
                 >
-                  hello@sedra.com
+                  {CONTACT_PHONE_DISPLAY}
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4" />
                 <a
-                  href="tel:+1234567890"
+                  href={CONTACT_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-slate-300 dark:text-slate-400 hover:text-primary transition-colors"
                 >
-                  +1 (234) 567-890
+                  WhatsApp
                 </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5" />
-                <span>123 Travel Lane, Adventure City, AC 12345</span>
               </li>
             </ul>
           </div>

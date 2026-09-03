@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "How long does shipping take?",
     answer:
-      "Shipping times vary depending on your location. Domestic orders typically arrive within 5-7 business days, while international orders may take 2-3 weeks. You'll receive tracking information via email once your order ships.",
+      "Orders typically arrive within 2-3 business days. You'll receive updates once your order is confirmed and on its way.",
   },
   {
     question: "Are all items authentic?",

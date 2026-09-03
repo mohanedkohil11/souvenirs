@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { LayoutDashboard, Package, FolderOpen, ShoppingCart, LogOut, Store } from "lucide-react"
+import { LayoutDashboard, Package, FolderOpen, ShoppingCart, LogOut, Store, Mail } from "lucide-react"
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +25,7 @@ const navItems = [
   { href: "/dashboard/products", label: "Products", icon: Package },
   { href: "/dashboard/categories", label: "Categories", icon: FolderOpen },
   { href: "/dashboard/orders", label: "Orders", icon: ShoppingCart },
+  { href: "/dashboard/messages", label: "Messages", icon: Mail },
 ]
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {

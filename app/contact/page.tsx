@@ -7,7 +7,9 @@ import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Mail, Phone, MapPin, Clock } from "lucide-react"
+import { Phone, MessageCircle } from "lucide-react"
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_WHATSAPP_URL } from "@/lib/contact"
+import { toast } from "sonner"
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -28,17 +30,29 @@ export default function ContactPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      })
 
-    setIsSubmitted(true)
-    setIsLoading(false)
+      if (!res.ok) {
+        const data = await res.json()
+        throw new Error(data.error || "Failed to send message")
+      }
 
-    // Reset form after 3 seconds
-    setTimeout(() => {
+      setIsSubmitted(true)
       setFormData({ name: "", email: "", subject: "", message: "" })
-      setIsSubmitted(false)
-    }, 3000)
+
+      setTimeout(() => {
+        setIsSubmitted(false)
+      }, 3000)
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Failed to send message. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -54,34 +68,31 @@ export default function ContactPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-          {/* Contact Info Cards */}
-          <Card className="p-8 text-center">
-            <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="text-xl font-bold mb-2">Email</h3>
-            <a href="mailto:hello@sedra.com" className="text-primary hover:underline">
-              hello@sedra.com
-            </a>
-          </Card>
-
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto mb-16">
           <Card className="p-8 text-center">
             <Phone className="w-12 h-12 text-primary mx-auto mb-4" />
             <h3 className="text-xl font-bold mb-2">Phone</h3>
-            <a href="tel:+1234567890" className="text-primary hover:underline">
-              +1 (234) 567-890
+            <a href={`tel:${CONTACT_PHONE}`} className="text-primary hover:underline">
+              {CONTACT_PHONE_DISPLAY}
             </a>
           </Card>
 
           <Card className="p-8 text-center">
-            <Clock className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="text-xl font-bold mb-2">Hours</h3>
-            <p className="text-muted-foreground">Mon - Fri: 9am - 6pm EST</p>
-            <p className="text-muted-foreground">Sat - Sun: 10am - 4pm EST</p>
+            <MessageCircle className="w-12 h-12 text-primary mx-auto mb-4" />
+            <h3 className="text-xl font-bold mb-2">WhatsApp</h3>
+            <a
+              href={CONTACT_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              {CONTACT_PHONE_DISPLAY}
+            </a>
           </Card>
         </div>
 
         {/* Contact Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="max-w-xl mx-auto">
           <Card className="p-8">
             <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
 
@@ -153,42 +164,6 @@ export default function ContactPage() {
               </form>
             )}
           </Card>
-
-          {/* Map/Info Section */}
-          <div>
-            <Card className="p-8 h-full flex flex-col justify-center">
-              <h2 className="text-2xl font-bold mb-6">Visit Us</h2>
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <MapPin className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold mb-1">Address</h3>
-                    <p className="text-muted-foreground">123 Travel Lane</p>
-                    <p className="text-muted-foreground">Adventure City, AC 12345</p>
-                    <p className="text-muted-foreground">United States</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <Mail className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold mb-1">Email</h3>
-                    <p className="text-muted-foreground">hello@sedra.com</p>
-                    <p className="text-muted-foreground">support@sedra.com</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4">
-                  <Phone className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-bold mb-1">Phone</h3>
-                    <p className="text-muted-foreground">+1 (234) 567-890</p>
-                    <p className="text-muted-foreground">+1 (234) 567-891</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
         </div>
       </main>
 

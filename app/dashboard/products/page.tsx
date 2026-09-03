@@ -139,7 +139,6 @@ export default function ProductsListPage() {
                     <div className="flex gap-1 flex-wrap">
                       {product.isFeatured && <Badge variant="outline" className="text-xs">Featured</Badge>}
                       {product.isBestSeller && <Badge variant="outline" className="text-xs">Best Seller</Badge>}
-                      {product.isFlashSale && <Badge variant="outline" className="text-xs text-red-600">Flash Sale</Badge>}
                     </div>
                   </td>
                   <td className="p-4">

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { normalizeRating } from "@/lib/utils"
 
 export async function GET() {
   try {
@@ -32,7 +33,7 @@ export async function POST(request: NextRequest) {
       description: body.description || null,
       fullDescription: body.fullDescription || null,
       image: body.image || null,
-      rating: parseFloat(body.rating) || 0,
+      rating: normalizeRating(parseFloat(body.rating) || 0),
       reviews: parseInt(body.reviews) || 0,
       inStock: body.inStock ?? true,
       quantity: parseInt(body.quantity) || 0,

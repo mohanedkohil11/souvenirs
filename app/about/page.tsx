@@ -27,27 +27,6 @@ export default function AboutPage() {
     },
   ]
 
-  const team = [
-    {
-      name: "Sarah Chen",
-      role: "Founder & CEO",
-      image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/woman-portrait.png",
-      bio: "Travel enthusiast with 10+ years of experience in Egyptian trade.",
-    },
-    {
-      name: "Marco Rossi",
-      role: "Head of Sourcing",
-      image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/thoughtful-man-portrait.png",
-      bio: "Expert in connecting with Egyptian artisans and ensuring product authenticity.",
-    },
-    {
-      name: "Yuki Tanaka",
-      role: "Customer Experience",
-      image: "https://pjxkbmcvaajjyyggotof.supabase.co/storage/v1/object/public/images/asian-woman-portrait.png",
-      bio: "Dedicated to making every customer journey memorable and smooth.",
-    },
-  ]
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -109,31 +88,6 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Team Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-16">Meet Our Team</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {team.map((member, idx) => (
-                <Card key={idx} className="overflow-hidden text-center">
-                  <div className="h-64 bg-muted overflow-hidden">
-                    <img
-                      src={member.image || "/placeholder.svg"}
-                      alt={member.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                    <p className="text-primary font-semibold mb-3">{member.role}</p>
-                    <p className="text-muted-foreground text-sm">{member.bio}</p>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* CTA Section */}
         <section className="py-20 px-4 bg-gradient-to-r from-primary/10 to-accent/10">
           <div className="max-w-4xl mx-auto text-center">
@@ -141,9 +95,9 @@ export default function AboutPage() {
             <p className="text-lg text-muted-foreground mb-8">
               Start your journey through our collection of authentic Egyptian souvenirs.
             </p>
-            <Link href="/shop">
+            <Link href="/#collection">
               <Button size="lg" className="bg-primary hover:bg-primary/90">
-                Shop Now
+                Explore Collection
               </Button>
             </Link>
           </div>

@@ -113,7 +113,7 @@ export default function CheckoutPage() {
         <main className="max-w-2xl mx-auto px-4 py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Your cart is empty</h1>
           <p className="text-muted-foreground mb-6">Add some items before checking out.</p>
-          <Link href="/shop">
+          <Link href="/#collection">
             <Button>Continue Shopping</Button>
           </Link>
         </main>

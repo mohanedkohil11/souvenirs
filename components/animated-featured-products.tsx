@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -13,38 +12,32 @@ type FeaturedProduct = {
 }
 
 export default function AnimatedFeaturedProducts({ products }: { products: FeaturedProduct[] }) {
-  const [hoveredId, setHoveredId] = useState<string | null>(null)
-
   return (
-    <section className="my-24 px-4 bg-background relative overflow-hidden">
+    <section id="collection" className="my-24 px-4 bg-background relative overflow-hidden">
       <div className="absolute top-0 right-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bold mb-4 text-balance">
-            Featured{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Treasures</span>
+            Our{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Collection</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Handpicked souvenirs that tell the story of Egypt&apos;s magnificent heritage
+            Authentic souvenirs that tell the story of Egypt&apos;s magnificent heritage
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
-              <div
-                className="group cursor-pointer"
-                onMouseEnter={() => setHoveredId(product.id)}
-                onMouseLeave={() => setHoveredId(null)}
-              >
+              <div className="group cursor-pointer">
                 <div className="relative overflow-hidden rounded-2xl bg-card border border-border/50 transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/20 transform hover:-translate-y-2">
-                  <div className="relative h-64 overflow-hidden bg-muted">
+                  <div className="relative aspect-square overflow-hidden bg-muted">
                     <Image
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="object-contain transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
 

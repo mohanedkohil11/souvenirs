@@ -1,14 +1,13 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Star, Heart, Share2, ChevronLeft } from "lucide-react"
+import { Star, Share2, ChevronLeft } from "lucide-react"
 import { useCart } from "@/lib/cart-context"
+import { formatRating } from "@/lib/utils"
 import { toast } from "sonner"
 
 type ProductDetail = {
@@ -22,27 +21,11 @@ type ProductDetail = {
   inStock: boolean
   quantity: number
   categoryName: string
-  specifications: { label: string; value: string }[]
 }
 
-type RelatedProduct = {
-  id: string
-  name: string
-  price: number
-  image: string | null
-}
-
-export default function ProductDetailClient({
-  product,
-  relatedProducts,
-}: {
-  product: ProductDetail
-  relatedProducts: RelatedProduct[]
-}) {
-  const router = useRouter()
+export default function ProductDetailClient({ product }: { product: ProductDetail }) {  const router = useRouter()
   const { addItem } = useCart()
   const [quantity, setQuantity] = useState(1)
-  const [isWishlisted, setIsWishlisted] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
 
   const viewLogged = useRef(false)
@@ -76,6 +59,28 @@ export default function ProductDetailClient({
     setTimeout(() => setAddedToCart(false), 2000)
   }
 
+  const handleShare = async () => {
+    const url = window.location.href
+    const shareData = {
+      title: product.name,
+      text: `Check out ${product.name} on Souvenir Stories`,
+      url,
+    }
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData)
+        return
+      }
+
+      await navigator.clipboard.writeText(url)
+      toast.success("Link copied to clipboard")
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return
+      toast.error("Could not share this product")
+    }
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -95,18 +100,12 @@ export default function ProductDetailClient({
               <img
                 src={product.image || "/placeholder.svg"}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>
 
           <div className="flex flex-col justify-center">
-            <div className="mb-4">
-              <span className="inline-block bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-semibold">
-                {product.categoryName}
-              </span>
-            </div>
-
             <h1 className="text-4xl md:text-5xl font-bold mb-4">{product.name}</h1>
 
             <div className="flex items-center gap-4 mb-6">
@@ -118,7 +117,7 @@ export default function ProductDetailClient({
                   />
                 ))}
               </div>
-              <span className="text-lg font-semibold">{product.rating}</span>
+              <span className="text-lg font-semibold">{formatRating(product.rating)}</span>
               <span className="text-muted-foreground">({product.reviews} reviews)</span>
             </div>
 
@@ -162,51 +161,14 @@ export default function ProductDetailClient({
                 size="lg"
                 variant="outline"
                 className="px-6 bg-transparent"
-                onClick={() => setIsWishlisted(!isWishlisted)}
+                onClick={handleShare}
+                aria-label="Share product"
               >
-                <Heart className={`w-5 h-5 ${isWishlisted ? "fill-red-500 text-red-500" : ""}`} />
-              </Button>
-              <Button size="lg" variant="outline" className="px-6 bg-transparent">
                 <Share2 className="w-5 h-5" />
               </Button>
             </div>
-
-            <div className="border-t border-border pt-8">
-              <h3 className="font-bold text-lg mb-4">Specifications</h3>
-              <div className="space-y-3">
-                {product.specifications.map((spec, idx) => (
-                  <div key={idx} className="flex justify-between">
-                    <span className="text-muted-foreground">{spec.label}</span>
-                    <span className="font-semibold">{spec.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
-
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8">You Might Also Like</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedProducts.map((relProduct) => (
-              <Link key={relProduct.id} href={`/product/${relProduct.id}`}>
-                <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
-                  <div className="h-48 bg-muted overflow-hidden">
-                    <img
-                      src={relProduct.image || "/placeholder.svg"}
-                      alt={relProduct.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold mb-2">{relProduct.name}</h3>
-                    <p className="text-2xl font-bold text-primary">${relProduct.price.toFixed(2)}</p>
-                  </div>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
       </main>
 
       <Footer />

@@ -1,6 +1,8 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Card } from "@/components/ui/card"
+import Link from "next/link"
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_WHATSAPP_URL } from "@/lib/contact"
 
 export default function PrivacyPage() {
   return (
@@ -70,17 +72,37 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-2xl font-bold mb-4">6. Contact Us</h2>
               <p className="text-muted-foreground">
-                If you have questions about this Privacy Policy or our privacy practices, please contact us at:
+                If you have questions about this Privacy Policy or our privacy practices, please contact us:
               </p>
-              <p className="text-muted-foreground mt-4">
-                Email: privacy@sedra.com
-                <br />
-                Address: 123 Travel Lane, Adventure City, AC 12345
-              </p>
+              <ul className="mt-4 space-y-2 text-muted-foreground">
+                <li>
+                  Phone:{" "}
+                  <a href={`tel:${CONTACT_PHONE}`} className="text-primary hover:underline">
+                    {CONTACT_PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li>
+                  WhatsApp:{" "}
+                  <a
+                    href={CONTACT_WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    {CONTACT_PHONE_DISPLAY}
+                  </a>
+                </li>
+                <li>
+                  Contact form:{" "}
+                  <Link href="/contact" className="text-primary hover:underline">
+                    Get in Touch
+                  </Link>
+                </li>
+              </ul>
             </section>
 
             <section>
-              <p className="text-sm text-muted-foreground">Last updated: January 2025</p>
+              <p className="text-sm text-muted-foreground">Last updated: September 2026</p>
             </section>
           </div>
         </Card>

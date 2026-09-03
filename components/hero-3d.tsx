@@ -23,7 +23,7 @@ export default function Hero3D() {
   }, [heroImages.length])
 
   return (
-    <div className="relative w-full h-[calc(100%-8rem)] bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
+    <div className="relative w-full h-full bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
         {heroImages.map((image, index) => (
           <div
@@ -73,7 +73,7 @@ export default function Hero3D() {
           </p>
 
           <div className="flex gap-4 justify-center">
-            <Link href="/categories">
+            <Link href="/#collection">
               <button className="px-6 py-3 md:px-8 md:py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all duration-300 hover:shadow-lg hover:shadow-primary/50 transform hover:scale-105">
                 Explore Collection
               </button>

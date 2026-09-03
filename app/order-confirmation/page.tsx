@@ -87,7 +87,7 @@ function OrderConfirmationContent() {
         <Header />
         <main className="max-w-4xl mx-auto px-4 py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Order not found</h1>
-          <Link href="/shop"><Button>Continue Shopping</Button></Link>
+          <Link href="/#collection"><Button>Browse Collection</Button></Link>
         </main>
         <Footer />
       </div>
@@ -171,8 +171,8 @@ function OrderConfirmationContent() {
         </Card>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/shop">
-            <Button size="lg" variant="outline">Continue Shopping</Button>
+          <Link href="/#collection">
+            <Button size="lg" variant="outline">Browse Collection</Button>
           </Link>
           <Link href="/">
             <Button size="lg" className="bg-primary hover:bg-primary/90">Back to Home</Button>

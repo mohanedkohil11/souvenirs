@@ -27,8 +27,8 @@ export default function CartPage() {
                 <ShoppingBag className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
                 <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
                 <p className="text-muted-foreground mb-6">Start shopping to add items to your cart</p>
-                <Link href="/shop">
-                  <Button className="bg-primary hover:bg-primary/90">Continue Shopping</Button>
+                <Link href="/#collection">
+                  <Button className="bg-primary hover:bg-primary/90">Browse Collection</Button>
                 </Link>
               </Card>
             </div>
@@ -64,7 +64,7 @@ export default function CartPage() {
                     <img
                       src={item.image || "/placeholder.svg"}
                       alt={item.name}
-                      className="w-24 h-24 rounded-lg object-cover flex-shrink-0"
+                      className="w-24 h-24 rounded-lg object-contain bg-muted flex-shrink-0"
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-4">
@@ -107,8 +107,8 @@ export default function CartPage() {
               ))}
 
               <div className="pt-4">
-                <Link href="/shop">
-                  <Button variant="outline">Continue Shopping</Button>
+                <Link href="/#collection">
+                  <Button variant="outline">Browse Collection</Button>
                 </Link>
               </div>
             </div>

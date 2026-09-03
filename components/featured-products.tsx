@@ -1,7 +1,8 @@
 import Link from "next/link"
+import { Star } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Star } from "lucide-react"
+import { formatRating } from "@/lib/utils"
 
 type FeaturedProductItem = {
   id: string
@@ -29,11 +30,11 @@ export default function FeaturedProducts({ products }: { products: FeaturedProdu
           {products.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col cursor-pointer">
-                <div className="relative h-64 bg-muted overflow-hidden">
+                <div className="relative aspect-square bg-muted overflow-hidden">
                   <img
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-contain hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute top-3 right-3 bg-accent text-accent-foreground px-3 py-1 rounded-full text-xs font-semibold">
                     {product.categoryName}
@@ -55,7 +56,7 @@ export default function FeaturedProducts({ products }: { products: FeaturedProdu
                         />
                       ))}
                     </div>
-                    <span className="text-sm font-medium">{product.rating}</span>
+                    <span className="text-sm font-medium">{formatRating(product.rating)}</span>
                     <span className="text-xs text-muted-foreground">({product.reviews})</span>
                   </div>
 
@@ -72,7 +73,7 @@ export default function FeaturedProducts({ products }: { products: FeaturedProdu
         </div>
 
         <div className="text-center mt-12">
-          <Link href="/shop">
+          <Link href="/#collection">
             <Button size="lg" variant="outline">
               View All Products
             </Button>

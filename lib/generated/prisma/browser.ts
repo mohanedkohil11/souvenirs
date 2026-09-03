@@ -47,3 +47,8 @@ export type OrderItem = Prisma.OrderItemModel
  * 
  */
 export type ProductView = Prisma.ProductViewModel
+/**
+ * Model ContactMessage
+ * 
+ */
+export type ContactMessage = Prisma.ContactMessageModel

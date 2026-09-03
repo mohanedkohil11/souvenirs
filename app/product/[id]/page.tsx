@@ -4,7 +4,7 @@ import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { getProductById, getRelatedProducts } from "@/lib/data"
+import { getProductById } from "@/lib/data"
 import ProductDetailClient from "@/components/product-detail-client"
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
@@ -18,8 +18,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <main className="max-w-7xl mx-auto px-4 py-12">
           <div className="text-center">
             <h1 className="text-3xl font-bold mb-4">Product not found</h1>
-            <Link href="/shop">
-              <Button>Back to Shop</Button>
+            <Link href="/">
+              <Button>Back to Home</Button>
             </Link>
           </div>
         </main>
@@ -27,8 +27,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
       </div>
     )
   }
-
-  const relatedProducts = await getRelatedProducts(product.id, product.categoryId)
 
   return (
     <ProductDetailClient
@@ -43,17 +41,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         inStock: product.inStock,
         quantity: product.quantity,
         categoryName: product.category.name,
-        specifications: product.specifications.map((s) => ({
-          label: s.label,
-          value: s.value,
-        })),
       }}
-      relatedProducts={relatedProducts.map((p) => ({
-        id: p.id,
-        name: p.name,
-        price: p.price,
-        image: p.image,
-      }))}
     />
   )
 }
