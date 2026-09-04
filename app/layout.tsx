@@ -7,6 +7,7 @@ import Script from "next/script"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CartProvider } from "@/lib/cart-context"
 import { Toaster } from "sonner"
+import { getSiteUrl } from "@/lib/site"
 import "./globals.css"
 
 const poppins = Poppins({
@@ -27,6 +28,7 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: "Sedra - Authentic Travel Souvenirs",
   description: "Discover authentic souvenirs from around the world. Bring home memories from your travels.",
   generator: "v0.app",
