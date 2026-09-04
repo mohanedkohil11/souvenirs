@@ -59,6 +59,19 @@ Token set to define on `.museum`: `--background`, `--foreground`, `--muted`,
 `--muted-foreground`, `--primary` (gold), `--accent`, `--border`, plus
 home-specific `--museum-gold`, `--museum-alabaster`, `--museum-limestone`.
 
+**Display typeface.** The app currently loads only Poppins and Geist Mono —
+there is no serif. A display serif is added in `app/layout.tsx` via
+`next/font/google` (Cormorant Garamond, weights 300/400/600, exposed as
+`--font-display`) and registered in the `@theme inline` block as
+`--font-display`. It is used only by home-page display type; nothing else on
+the site changes typeface.
+
+**Page ground.** The `.museum` wrapper sets the tokens for its subtree, but
+`body` still resolves `bg-background` from `:root`, so overscroll would flash
+the light ground. The home shell therefore also applies the museum ground
+colour to the document element while mounted (set on mount, reverted on
+unmount), so rubber-band overscroll stays black.
+
 ## Structure
 
 ### Act 0 — Cold open
@@ -181,7 +194,11 @@ Modified:
 
 - `app/page.tsx` — stays a server component; fetches products, splits them, and
   renders the client shell.
-- `app/globals.css` — add the `.museum` scoped token block.
+- `app/globals.css` — add the `.museum` scoped token block and the
+  `--font-display` theme entry.
+- `app/layout.tsx` — load the Cormorant Garamond display serif and expose
+  `--font-display`. No other change; metadata, providers and existing fonts
+  stay as they are.
 - `components/header.tsx` — add the `variant` prop.
 - `package.json` — add `motion` and `lenis`.
 
