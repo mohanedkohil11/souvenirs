@@ -4,80 +4,92 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Updated color palette for luxury travel souvenir aesthetic */
-  --background: oklch(0.98 0.01 70);
-  --foreground: oklch(0.2 0.02 30);
+  /* Sedra brand palette, sampled from the Nefertiti mark and the SEDRA
+     wordmark: burnished gold and deep petrol teal.
+       gold        #C4913C      gold-soft  #E5C069     gold-deep #9A6E28
+       teal        #0F4C52      teal-deep  #0A3439     teal-soft #1A6B72 */
+  --brand-gold: oklch(0.68 0.105 78);
+  --brand-gold-soft: oklch(0.82 0.09 85);
+  --brand-gold-deep: oklch(0.55 0.09 76);
+  --brand-teal: oklch(0.37 0.055 208);
+  --brand-teal-deep: oklch(0.28 0.045 208);
+  --brand-teal-soft: oklch(0.47 0.065 208);
+  --brand-ink: oklch(0.22 0.03 208);
+
+  --background: oklch(0.985 0.004 90);
+  --foreground: var(--brand-ink);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2 0.02 30);
+  --card-foreground: var(--brand-ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.2 0.02 30);
-  --primary: oklch(0.65 0.15 40);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.75 0.12 200);
-  --secondary-foreground: oklch(0.2 0.02 30);
-  --muted: oklch(0.92 0.01 70);
-  --muted-foreground: oklch(0.5 0.02 30);
-  --accent: oklch(0.68 0.18 25);
-  --accent-foreground: oklch(1 0 0);
+  --popover-foreground: var(--brand-ink);
+  --primary: var(--brand-gold);
+  --primary-foreground: var(--brand-ink);
+  --secondary: var(--brand-teal);
+  --secondary-foreground: oklch(0.98 0.004 90);
+  --muted: oklch(0.95 0.006 85);
+  --muted-foreground: oklch(0.48 0.022 205);
+  --accent: var(--brand-teal);
+  --accent-foreground: oklch(0.98 0.004 90);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.93 0.01 70);
-  --input: oklch(0.96 0.01 70);
-  --ring: oklch(0.65 0.15 40);
-  --chart-1: oklch(0.65 0.15 40);
-  --chart-2: oklch(0.75 0.12 200);
-  --chart-3: oklch(0.68 0.18 25);
-  --chart-4: oklch(0.7 0.14 50);
-  --chart-5: oklch(0.72 0.13 35);
+  --destructive-foreground: oklch(0.98 0.004 90);
+  --border: oklch(0.91 0.008 85);
+  --input: oklch(0.96 0.006 85);
+  --ring: var(--brand-gold);
+  --chart-1: var(--brand-gold);
+  --chart-2: var(--brand-teal);
+  --chart-3: var(--brand-gold-soft);
+  --chart-4: var(--brand-teal-soft);
+  --chart-5: var(--brand-gold-deep);
   --radius: 0.75rem;
-  --sidebar: oklch(0.98 0.01 70);
-  --sidebar-foreground: oklch(0.2 0.02 30);
-  --sidebar-primary: oklch(0.65 0.15 40);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.68 0.18 25);
-  --sidebar-accent-foreground: oklch(1 0 0);
-  --sidebar-border: oklch(0.93 0.01 70);
-  --sidebar-ring: oklch(0.65 0.15 40);
+  --sidebar: oklch(0.985 0.004 90);
+  --sidebar-foreground: var(--brand-ink);
+  --sidebar-primary: var(--brand-gold);
+  --sidebar-primary-foreground: var(--brand-ink);
+  --sidebar-accent: var(--brand-teal);
+  --sidebar-accent-foreground: oklch(0.98 0.004 90);
+  --sidebar-border: oklch(0.91 0.008 85);
+  --sidebar-ring: var(--brand-gold);
 }
 
 .dark {
-  --background: oklch(0.15 0.01 30);
-  --foreground: oklch(0.95 0.01 70);
-  --card: oklch(0.2 0.01 30);
-  --card-foreground: oklch(0.95 0.01 70);
-  --popover: oklch(0.2 0.01 30);
-  --popover-foreground: oklch(0.95 0.01 70);
-  --primary: oklch(0.75 0.15 40);
-  --primary-foreground: oklch(0.15 0.01 30);
-  --secondary: oklch(0.65 0.12 200);
-  --secondary-foreground: oklch(0.95 0.01 70);
-  --muted: oklch(0.3 0.01 30);
-  --muted-foreground: oklch(0.7 0.02 30);
-  --accent: oklch(0.78 0.18 25);
-  --accent-foreground: oklch(0.15 0.01 30);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.3 0.01 30);
-  --input: oklch(0.25 0.01 30);
-  --ring: oklch(0.75 0.15 40);
-  --chart-1: oklch(0.75 0.15 40);
-  --chart-2: oklch(0.65 0.12 200);
-  --chart-3: oklch(0.78 0.18 25);
-  --chart-4: oklch(0.7 0.14 50);
-  --chart-5: oklch(0.72 0.13 35);
-  --sidebar: oklch(0.2 0.01 30);
-  --sidebar-foreground: oklch(0.95 0.01 70);
-  --sidebar-primary: oklch(0.75 0.15 40);
-  --sidebar-primary-foreground: oklch(0.15 0.01 30);
-  --sidebar-accent: oklch(0.78 0.18 25);
-  --sidebar-accent-foreground: oklch(0.15 0.01 30);
-  --sidebar-border: oklch(0.3 0.01 30);
-  --sidebar-ring: oklch(0.75 0.15 40);
+  --background: oklch(0.19 0.022 206);
+  --foreground: oklch(0.95 0.008 85);
+  --card: oklch(0.24 0.024 206);
+  --card-foreground: oklch(0.95 0.008 85);
+  --popover: oklch(0.24 0.024 206);
+  --popover-foreground: oklch(0.95 0.008 85);
+  --primary: oklch(0.73 0.12 80);
+  --primary-foreground: oklch(0.16 0.02 206);
+  --secondary: oklch(0.55 0.07 205);
+  --secondary-foreground: oklch(0.96 0.008 85);
+  --muted: oklch(0.3 0.02 206);
+  --muted-foreground: oklch(0.72 0.014 90);
+  --accent: oklch(0.55 0.07 205);
+  --accent-foreground: oklch(0.16 0.02 206);
+  --destructive: oklch(0.55 0.19 27);
+  --destructive-foreground: oklch(0.96 0.008 85);
+  --border: oklch(0.33 0.02 206);
+  --input: oklch(0.27 0.02 206);
+  --ring: oklch(0.73 0.12 80);
+  --chart-1: oklch(0.73 0.12 80);
+  --chart-2: oklch(0.55 0.07 205);
+  --chart-3: oklch(0.86 0.08 86);
+  --chart-4: oklch(0.65 0.06 205);
+  --chart-5: oklch(0.66 0.1 78);
+  --sidebar: oklch(0.24 0.024 206);
+  --sidebar-foreground: oklch(0.95 0.008 85);
+  --sidebar-primary: oklch(0.73 0.12 80);
+  --sidebar-primary-foreground: oklch(0.16 0.02 206);
+  --sidebar-accent: oklch(0.55 0.07 205);
+  --sidebar-accent-foreground: oklch(0.16 0.02 206);
+  --sidebar-border: oklch(0.33 0.02 206);
+  --sidebar-ring: oklch(0.73 0.12 80);
 }
 
 @theme inline {
   --font-sans: var(--font-poppins);
   --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -133,4 +145,189 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* ---------------------------------------------------------------------------
+   Museum — home page only.
+
+   Scoped tokens, not a change to :root or .dark, so the rest of the site keeps
+   its light palette and its theme toggle. The wrapper carries `museum dark` so
+   any shadcn component rendered inside resolves to dark variants.
+
+   The palette is drawn from Egyptian material culture rather than a generic
+   dark theme: basalt ground, alabaster type, electrum (the pale gold-silver
+   alloy) for display, Egyptian blue — the first synthetic pigment, made here —
+   as the cold accent, carnelian as the warm one.
+--------------------------------------------------------------------------- */
+
+.museum {
+  /* The home page room. Same brand gold, on a ground that is the brand teal
+     taken almost to black, so the two pages read as one identity. */
+  --museum-ground: oklch(0.145 0.018 205);
+  --museum-well: oklch(0.115 0.015 205);
+  --museum-plinth: oklch(0.2 0.022 205);
+  --museum-alabaster: oklch(0.95 0.01 85);
+  --museum-gold: oklch(0.71 0.125 79);
+  --museum-gold-deep: oklch(0.6 0.115 76);
+  --museum-teal: oklch(0.5 0.07 205);
+
+  --background: var(--museum-ground);
+  --foreground: var(--museum-alabaster);
+  --card: var(--museum-plinth);
+  --card-foreground: var(--museum-alabaster);
+  --popover: var(--museum-plinth);
+  --popover-foreground: var(--museum-alabaster);
+  --primary: var(--museum-gold);
+  --primary-foreground: var(--museum-ground);
+  --secondary: var(--museum-teal);
+  --secondary-foreground: var(--museum-alabaster);
+  --muted: oklch(0.24 0.02 205);
+  --muted-foreground: oklch(0.7 0.016 90);
+  --accent: var(--museum-teal);
+  --accent-foreground: var(--museum-alabaster);
+  --border: oklch(0.29 0.022 205);
+  --input: oklch(0.24 0.02 205);
+  --ring: var(--museum-gold);
+
+  background-color: var(--museum-ground);
+  color: var(--museum-alabaster);
+}
+/* A label face borrowed from accession tags: mono, tiny, widely tracked.
+   Deliberately sets no colour: this rule is unlayered, so a `color` here would
+   beat Tailwind's layered text utilities and silently ignore every override.
+   Each usage states its own colour. */
+.museum-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+/* Oversized display type. Light weight at large sizes is what reads as
+   exhibition signage rather than editorial magazine. */
+.museum-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+}
+
+/* Perspective stages. Depth lives on the parent so children can share it. */
+.museum-stage {
+  perspective: 1400px;
+  perspective-origin: 50% 45%;
+}
+
+.museum-plane {
+  transform-style: preserve-3d;
+}
+
+/* The pool of light an object stands in. */
+.museum-vitrine-light {
+  background: radial-gradient(
+    ellipse at center,
+    oklch(0.74 0.12 80 / 0.32) 0%,
+    oklch(0.62 0.115 77 / 0.14) 35%,
+    transparent 72%
+  );
+  filter: blur(18px);
+}
+
+@keyframes museum-dust {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--dust-opacity, 0.5);
+  }
+  88% {
+    opacity: var(--dust-opacity, 0.5);
+  }
+  100% {
+    transform: translate3d(var(--dust-drift, 30px), -110px, 0);
+    opacity: 0;
+  }
+}
+
+.museum-dust {
+  animation: museum-dust var(--dust-duration, 14s) linear infinite;
+  animation-delay: var(--dust-delay, 0s);
+}
+
+/* Lenis. Required for smooth scrolling to behave; harmless on other routes,
+   which never get the `lenis` class on <html>. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Anyone who asks for less motion gets a still page. */
+@media (prefers-reduced-motion: reduce) {
+  .museum-dust {
+    animation: none !important;
+  }
+
+  .museum-dust {
+    opacity: 0 !important;
+  }
+}
+
+/* Product shots are photographs with their own backgrounds, not cut-outs.
+   Feathering the edges into the ground is what makes an object read as lit in
+   a dark room instead of as a rectangle pasted onto one. */
+.museum-feather {
+  -webkit-mask-image: radial-gradient(
+    ellipse 60% 56% at 50% 46%,
+    #000 8%,
+    rgba(0, 0, 0, 0.75) 42%,
+    rgba(0, 0, 0, 0.25) 62%,
+    transparent 76%
+  );
+  mask-image: radial-gradient(
+    ellipse 60% 56% at 50% 46%,
+    #000 8%,
+    rgba(0, 0, 0, 0.75) 42%,
+    rgba(0, 0, 0, 0.25) 62%,
+    transparent 76%
+  );
+}
+
+/* A gentler vignette for the product page, where the job is to show the whole
+   object rather than dissolve it into the dark. Fully opaque well past the
+   product's extremities; only the photo's outer corners fade. */
+.museum-feather-wide {
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 85% at 50% 50%,
+    #000 62%,
+    rgba(0, 0, 0, 0.72) 82%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse 85% 85% at 50% 50%,
+    #000 62%,
+    rgba(0, 0, 0, 0.72) 82%,
+    transparent 100%
+  );
+}
+
+.museum-feather-soft {
+  -webkit-mask-image: radial-gradient(ellipse 64% 60% at 50% 46%, #000 12%, rgba(0, 0, 0, 0.7) 46%, transparent 76%);
+  mask-image: radial-gradient(ellipse 64% 60% at 50% 46%, #000 12%, rgba(0, 0, 0, 0.7) 46%, transparent 76%);
 }

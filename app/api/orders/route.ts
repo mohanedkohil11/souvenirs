@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { SHIPPING_FEE } from "@/lib/pricing"
 
 export async function GET() {
   const orders = await prisma.order.findMany({
@@ -18,7 +19,7 @@ export async function POST(request: NextRequest) {
     (sum: number, item: { price: number; quantity: number }) => sum + item.price * item.quantity,
     0
   )
-  const shipping = 10
+  const shipping = SHIPPING_FEE
   const total = subtotal + shipping
 
   const order = await prisma.order.create({

@@ -1,147 +1,143 @@
 "use client"
 
 import Link from "next/link"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { ShoppingBag, Trash2, Minus, Plus } from "lucide-react"
+import Image from "next/image"
+import { Trash2, Minus, Plus } from "lucide-react"
+import MuseumShell, { MuseumHeading } from "@/components/museum-shell"
 import { useCart } from "@/lib/cart-context"
+import { shippingFor } from "@/lib/pricing"
 
 export default function CartPage() {
   const { items, removeItem, updateQuantity, subtotal, totalItems } = useCart()
-  const shipping = totalItems > 0 ? 10 : 0
+  const shipping = shippingFor(totalItems)
   const total = subtotal + shipping
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <MuseumShell>
+      <section className="px-6 pb-32 pt-32 md:pt-40">
+        <div className="mx-auto max-w-6xl">
+          <MuseumHeading eyebrow="Your selection" title={items.length > 0 ? "The cart" : "Nothing selected yet"} />
 
-      <main className="max-w-7xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-8">Shopping Cart</h1>
+          {items.length === 0 ? (
+            <div className="mt-14 max-w-md">
+              <p className="text-base font-light leading-relaxed text-[var(--muted-foreground)]">
+                Objects you choose are held here until you are ready.
+              </p>
+              <Link
+                href="/#collection"
+                className="museum-label mt-10 inline-flex items-center gap-3 border-b border-[var(--museum-gold)]/40 pb-2 text-[var(--museum-gold)] transition-colors hover:border-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+              >
+                Enter the collection
+                <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+          ) : (
+            <div className="mt-16 grid gap-16 lg:grid-cols-[1fr_320px] lg:gap-24">
+              <ul className="border-t border-[var(--border)]">
+                {items.map((item) => (
+                  <li key={item.id} className="flex gap-6 border-b border-[var(--border)] py-8">
+                    <Link
+                      href={`/product/${item.id}`}
+                      className="relative aspect-square w-24 shrink-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)] md:w-28"
+                    >
+                      <Image
+                        src={item.image || "/placeholder.svg"}
+                        alt={item.name}
+                        fill
+                        sizes="112px"
+                        className="museum-feather-wide object-contain"
+                      />
+                    </Link>
 
-        {items.length === 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <Card className="p-8 text-center">
-                <ShoppingBag className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
-                <h2 className="text-2xl font-bold mb-2">Your cart is empty</h2>
-                <p className="text-muted-foreground mb-6">Start shopping to add items to your cart</p>
-                <Link href="/#collection">
-                  <Button className="bg-primary hover:bg-primary/90">Browse Collection</Button>
-                </Link>
-              </Card>
-            </div>
-            <div>
-              <Card className="p-6 sticky top-24">
-                <h3 className="text-xl font-bold mb-6">Order Summary</h3>
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal</span>
-                    <span className="font-semibold">$0.00</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <span className="font-semibold">$0.00</span>
-                  </div>
-                  <div className="border-t border-border pt-4 flex justify-between">
-                    <span className="font-bold">Total</span>
-                    <span className="text-2xl font-bold text-primary">$0.00</span>
-                  </div>
-                </div>
-                <Button disabled className="w-full">
-                  Proceed to Checkout
-                </Button>
-              </Card>
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2 space-y-4">
-              {items.map((item) => (
-                <Card key={item.id} className="p-4">
-                  <div className="flex gap-4">
-                    <img
-                      src={item.image || "/placeholder.svg"}
-                      alt={item.name}
-                      className="w-24 h-24 rounded-lg object-contain bg-muted flex-shrink-0"
-                    />
-                    <div className="flex-1 min-w-0">
+                    <div className="flex min-w-0 flex-1 flex-col justify-between gap-4">
                       <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <Link href={`/product/${item.id}`} className="font-bold text-lg hover:text-primary transition-colors">
+                        <div className="min-w-0">
+                          <Link
+                            href={`/product/${item.id}`}
+                            className="museum-display block text-xl text-[var(--museum-alabaster)] transition-colors hover:text-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)] md:text-2xl"
+                          >
                             {item.name}
                           </Link>
-                          <p className="text-primary font-semibold mt-1">${item.price.toFixed(2)}</p>
+                          <p className="museum-label mt-2 text-[var(--muted-foreground)]">
+                            ${item.price.toFixed(2)} each
+                          </p>
                         </div>
-                        <Button
-                          variant="ghost"
-                          size="sm"
+                        <button
                           onClick={() => removeItem(item.id)}
-                          className="text-muted-foreground hover:text-red-500 flex-shrink-0"
+                          aria-label={`Remove ${item.name} from cart`}
+                          className="shrink-0 p-2 text-[var(--muted-foreground)] transition-colors hover:text-[var(--destructive)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--museum-gold)]"
                         >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                          <Trash2 className="h-4 w-4" />
+                        </button>
                       </div>
-                      <div className="flex items-center justify-between mt-4">
-                        <div className="flex items-center border border-border rounded-lg">
+
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center border border-[var(--border)]">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="px-3 py-1.5 hover:bg-muted transition-colors"
+                            aria-label={`Decrease quantity of ${item.name}`}
+                            className="px-3 py-2 text-[var(--muted-foreground)] transition-colors hover:text-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--museum-gold)]"
                           >
-                            <Minus className="w-4 h-4" />
+                            <Minus className="h-3.5 w-3.5" />
                           </button>
-                          <span className="px-4 py-1.5 font-semibold text-sm">{item.quantity}</span>
+                          <span className="min-w-[2.5rem] px-1 text-center font-mono text-sm text-[var(--museum-alabaster)]">
+                            {item.quantity}
+                          </span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="px-3 py-1.5 hover:bg-muted transition-colors"
+                            aria-label={`Increase quantity of ${item.name}`}
+                            className="px-3 py-2 text-[var(--muted-foreground)] transition-colors hover:text-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[var(--museum-gold)]"
                           >
-                            <Plus className="w-4 h-4" />
+                            <Plus className="h-3.5 w-3.5" />
                           </button>
                         </div>
-                        <span className="font-bold text-lg">${(item.price * item.quantity).toFixed(2)}</span>
+                        <span className="museum-display text-xl text-[var(--museum-gold)]">
+                          ${(item.price * item.quantity).toFixed(2)}
+                        </span>
                       </div>
                     </div>
-                  </div>
-                </Card>
-              ))}
+                  </li>
+                ))}
+              </ul>
 
-              <div className="pt-4">
-                <Link href="/#collection">
-                  <Button variant="outline">Browse Collection</Button>
+              <aside className="lg:sticky lg:top-28 lg:self-start">
+                <p className="museum-label text-[var(--museum-gold)]">Summary</p>
+
+                <dl className="mt-8 space-y-4">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="museum-label text-[var(--muted-foreground)]">
+                      Subtotal · {totalItems} {totalItems === 1 ? "item" : "items"}
+                    </dt>
+                    <dd className="font-mono text-sm text-[var(--museum-alabaster)]">${subtotal.toFixed(2)}</dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="museum-label text-[var(--muted-foreground)]">Delivery</dt>
+                    <dd className="font-mono text-sm text-[var(--museum-alabaster)]">${shipping.toFixed(2)}</dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4 border-t border-[var(--border)] pt-5">
+                    <dt className="museum-label text-[var(--museum-alabaster)]">Total</dt>
+                    <dd className="museum-display text-2xl text-[var(--museum-gold)]">${total.toFixed(2)}</dd>
+                  </div>
+                </dl>
+
+                <Link
+                  href="/checkout"
+                  className="museum-label mt-10 block bg-[var(--museum-gold)] px-8 py-4 text-center text-[var(--museum-ground)] transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+                >
+                  Checkout
                 </Link>
-              </div>
-            </div>
 
-            <div>
-              <Card className="p-6 sticky top-24">
-                <h3 className="text-xl font-bold mb-6">Order Summary</h3>
-                <div className="space-y-4 mb-6">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Subtotal ({totalItems} items)</span>
-                    <span className="font-semibold">${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <span className="font-semibold">${shipping.toFixed(2)}</span>
-                  </div>
-                  <div className="border-t border-border pt-4 flex justify-between">
-                    <span className="font-bold">Total</span>
-                    <span className="text-2xl font-bold text-primary">${total.toFixed(2)}</span>
-                  </div>
-                </div>
-                <Link href="/checkout">
-                  <Button className="w-full bg-primary hover:bg-primary/90">
-                    Proceed to Checkout
-                  </Button>
+                <Link
+                  href="/#collection"
+                  className="museum-label mt-6 block text-center text-[var(--muted-foreground)] transition-colors hover:text-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+                >
+                  Keep looking
                 </Link>
-              </Card>
+              </aside>
             </div>
-          </div>
-        )}
-      </main>
-
-      <Footer />
-    </div>
+          )}
+        </div>
+      </section>
+    </MuseumShell>
   )
 }

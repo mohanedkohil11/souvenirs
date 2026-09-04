@@ -3,7 +3,6 @@ export const dynamic = "force-dynamic"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { Button } from "@/components/ui/button"
 import { getProductById } from "@/lib/data"
 import ProductDetailClient from "@/components/product-detail-client"
 
@@ -13,15 +12,20 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="max-w-7xl mx-auto px-4 py-12">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Product not found</h1>
-            <Link href="/">
-              <Button>Back to Home</Button>
-            </Link>
-          </div>
+      <div className="museum dark min-h-screen">
+        <Header variant="overlay" />
+        <main className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-6 text-center">
+          <p className="museum-label text-[var(--museum-gold)]">Not in the collection</p>
+          <h1 className="museum-display mt-6 text-[clamp(2.2rem,6vw,4rem)] text-[var(--museum-alabaster)]">
+            This object is no longer here.
+          </h1>
+          <Link
+            href="/#collection"
+            className="museum-label mt-12 inline-flex items-center gap-3 border-b border-[var(--museum-gold)]/40 pb-2 text-[var(--museum-gold)] transition-colors hover:border-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+          >
+            Back to the collection
+            <span aria-hidden="true">→</span>
+          </Link>
         </main>
         <Footer />
       </div>

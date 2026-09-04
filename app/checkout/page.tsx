@@ -4,11 +4,9 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import MuseumShell, { MuseumHeading } from "@/components/museum-shell"
 import { useCart } from "@/lib/cart-context"
+import { shippingFor } from "@/lib/pricing"
 import { toast } from "sonner"
 
 const EGYPT_CITIES = [
@@ -44,10 +42,29 @@ const DELIVERY_PERIODS = [
   { value: "night", label: "Night (8:00 PM - 11:00 PM)" },
 ]
 
+/** Hairline underline fields, to match the page rather than a boxed form. */
+const FIELD =
+  "w-full border-b border-[var(--border)] bg-transparent py-3 text-[var(--museum-alabaster)] outline-none transition-colors placeholder:text-[var(--muted-foreground)]/50 focus:border-[var(--museum-gold)]"
+
+function Field({
+  label,
+  children,
+}: {
+  label: string
+  children: React.ReactNode
+}) {
+  return (
+    <label className="block">
+      <span className="museum-label text-[var(--muted-foreground)]">{label}</span>
+      <div className="mt-3">{children}</div>
+    </label>
+  )
+}
+
 export default function CheckoutPage() {
   const router = useRouter()
   const { items, subtotal, totalItems, clearCart } = useCart()
-  const shipping = totalItems > 0 ? 10 : 0
+  const shipping = shippingFor(totalItems)
   const total = subtotal + shipping
 
   const [formData, setFormData] = useState({
@@ -108,133 +125,190 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="max-w-2xl mx-auto px-4 py-20 text-center">
-          <h1 className="text-3xl font-bold mb-4">Your cart is empty</h1>
-          <p className="text-muted-foreground mb-6">Add some items before checking out.</p>
-          <Link href="/#collection">
-            <Button>Continue Shopping</Button>
-          </Link>
-        </main>
-        <Footer />
-      </div>
+      <MuseumShell>
+        <section className="px-6 pb-32 pt-32 md:pt-40">
+          <div className="mx-auto max-w-6xl">
+            <MuseumHeading eyebrow="Checkout" title="Nothing selected yet" />
+            <p className="mt-8 max-w-md text-base font-light leading-relaxed text-[var(--muted-foreground)]">
+              Choose something before checking out.
+            </p>
+            <Link
+              href="/#collection"
+              className="museum-label mt-10 inline-flex items-center gap-3 border-b border-[var(--museum-gold)]/40 pb-2 text-[var(--museum-gold)] transition-colors hover:border-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+            >
+              Enter the collection
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </section>
+      </MuseumShell>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <MuseumShell>
+      <section className="px-6 pb-32 pt-32 md:pt-40">
+        <div className="mx-auto max-w-6xl">
+          <MuseumHeading eyebrow="Checkout" title="Where it should go" />
 
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold mb-12">Checkout</h1>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2">
-            <Card className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div>
-                  <h2 className="text-2xl font-bold mb-6">Contact Information</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">First Name</label>
-                      <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required
-                        className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Ahmed" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">Last Name</label>
-                      <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required
-                        className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Mohamed" />
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">Email</label>
-                      <input type="email" name="email" value={formData.email} onChange={handleChange} required
-                        className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary" placeholder="ahmed@example.com" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">Phone</label>
-                      <input type="tel" name="phone" value={formData.phone} onChange={handleChange} required
-                        className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary" placeholder="+20 100 000 0000" />
-                    </div>
-                  </div>
+          <div className="mt-16 grid gap-16 lg:grid-cols-[1fr_320px] lg:gap-24">
+            <form onSubmit={handleSubmit} className="space-y-14">
+              <fieldset className="border-t border-[var(--border)] pt-10">
+                <legend className="sr-only">Contact information</legend>
+                <p className="museum-label mb-10 text-[var(--museum-gold)]">Who you are</p>
+                <div className="grid gap-10 md:grid-cols-2">
+                  <Field label="First name">
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      required
+                      autoComplete="given-name"
+                      placeholder="Ahmed"
+                      className={FIELD}
+                    />
+                  </Field>
+                  <Field label="Last name">
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      required
+                      autoComplete="family-name"
+                      placeholder="Mohamed"
+                      className={FIELD}
+                    />
+                  </Field>
+                  <Field label="Email">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      autoComplete="email"
+                      placeholder="ahmed@example.com"
+                      className={FIELD}
+                    />
+                  </Field>
+                  <Field label="Phone">
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      required
+                      autoComplete="tel"
+                      placeholder="+20 100 000 0000"
+                      className={FIELD}
+                    />
+                  </Field>
                 </div>
+              </fieldset>
 
-                <div className="border-t border-border pt-8">
-                  <h2 className="text-2xl font-bold mb-6">Delivery Details</h2>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2">Address</label>
-                    <input type="text" name="address" value={formData.address} onChange={handleChange} required
-                      className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary" placeholder="123 El Nasr Street, Downtown" />
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">City</label>
-                      <select name="city" value={formData.city} onChange={handleChange} required
-                        className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary">
+              <fieldset className="border-t border-[var(--border)] pt-10">
+                <legend className="sr-only">Delivery details</legend>
+                <p className="museum-label mb-10 text-[var(--museum-gold)]">Where to bring it</p>
+                <div className="grid gap-10">
+                  <Field label="Address">
+                    <input
+                      type="text"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      required
+                      autoComplete="street-address"
+                      placeholder="123 El Nasr Street, Downtown"
+                      className={FIELD}
+                    />
+                  </Field>
+                  <div className="grid gap-10 md:grid-cols-2">
+                    <Field label="City">
+                      <select
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                        autoComplete="address-level2"
+                        className={FIELD}
+                      >
                         {EGYPT_CITIES.map((city) => (
-                          <option key={city} value={city}>{city}</option>
+                          <option key={city} value={city} className="bg-[var(--museum-plinth)]">
+                            {city}
+                          </option>
                         ))}
                       </select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold mb-2">Preferred Delivery Time</label>
-                      <select name="deliveryPeriod" value={formData.deliveryPeriod} onChange={handleChange} required
-                        className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-primary">
+                    </Field>
+                    <Field label="Preferred delivery time">
+                      <select
+                        name="deliveryPeriod"
+                        value={formData.deliveryPeriod}
+                        onChange={handleChange}
+                        required
+                        className={FIELD}
+                      >
                         {DELIVERY_PERIODS.map((period) => (
-                          <option key={period.value} value={period.value}>{period.label}</option>
+                          <option key={period.value} value={period.value} className="bg-[var(--museum-plinth)]">
+                            {period.label}
+                          </option>
                         ))}
                       </select>
-                    </div>
+                    </Field>
                   </div>
                 </div>
+              </fieldset>
 
-                <div className="border-t border-border pt-8">
-                  <Button type="submit" disabled={isLoading} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-3 text-lg">
-                    {isLoading ? "Processing..." : "Complete Order"}
-                  </Button>
-                  <p className="text-xs text-muted-foreground text-center mt-4">
-                    No payment required. We&apos;ll contact you to arrange payment after order confirmation.
-                  </p>
-                </div>
-              </form>
-            </Card>
-          </div>
+              <div className="border-t border-[var(--border)] pt-10">
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="museum-label w-full bg-[var(--museum-gold)] px-8 py-4 text-[var(--museum-ground)] transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)] disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {isLoading ? "Placing order" : "Place order"}
+                </button>
+                <p className="mt-6 text-center text-sm font-light text-[var(--muted-foreground)]">
+                  No payment now. We contact you to arrange payment once the order is confirmed.
+                </p>
+              </div>
+            </form>
 
-          <div>
-            <Card className="p-6 sticky top-24">
-              <h3 className="text-xl font-bold mb-6">Order Summary</h3>
+            <aside className="lg:sticky lg:top-28 lg:self-start">
+              <p className="museum-label text-[var(--museum-gold)]">Summary</p>
 
-              <div className="space-y-4 mb-6 pb-6 border-b border-border">
+              <ul className="mt-8 space-y-4 border-b border-[var(--border)] pb-6">
                 {items.map((item) => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span>{item.name} x {item.quantity}</span>
-                    <span className="font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
-                  </div>
+                  <li key={item.id} className="flex items-baseline justify-between gap-4">
+                    <span className="min-w-0 text-sm font-light text-[var(--museum-alabaster)]">
+                      {item.name}
+                      <span className="text-[var(--muted-foreground)]"> × {item.quantity}</span>
+                    </span>
+                    <span className="shrink-0 font-mono text-sm text-[var(--museum-alabaster)]">
+                      ${(item.price * item.quantity).toFixed(2)}
+                    </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <div className="space-y-3 mb-6">
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Subtotal</span>
-                  <span className="font-semibold">${subtotal.toFixed(2)}</span>
+              <dl className="mt-6 space-y-4">
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="museum-label text-[var(--muted-foreground)]">Subtotal</dt>
+                  <dd className="font-mono text-sm text-[var(--museum-alabaster)]">${subtotal.toFixed(2)}</dd>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Shipping</span>
-                  <span className="font-semibold">${shipping.toFixed(2)}</span>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="museum-label text-[var(--muted-foreground)]">Delivery</dt>
+                  <dd className="font-mono text-sm text-[var(--museum-alabaster)]">${shipping.toFixed(2)}</dd>
                 </div>
-                <div className="border-t border-border pt-3 flex justify-between">
-                  <span className="font-bold">Total</span>
-                  <span className="text-2xl font-bold text-primary">${total.toFixed(2)}</span>
+                <div className="flex items-baseline justify-between gap-4 border-t border-[var(--border)] pt-5">
+                  <dt className="museum-label text-[var(--museum-alabaster)]">Total</dt>
+                  <dd className="museum-display text-2xl text-[var(--museum-gold)]">${total.toFixed(2)}</dd>
                 </div>
-              </div>
-            </Card>
+              </dl>
+            </aside>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </div>
+      </section>
+    </MuseumShell>
   )
 }

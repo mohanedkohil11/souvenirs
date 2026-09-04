@@ -1,33 +1,25 @@
 export const dynamic = "force-dynamic"
 
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import Hero3D from "@/components/hero-3d"
-import AnimatedFeaturedProducts from "@/components/animated-featured-products"
+import HomeExperience from "@/components/home/home-experience"
+import type { MuseumObject } from "@/components/home/types"
 import { getProducts } from "@/lib/data"
 
 export default async function Home() {
   const products = await getProducts()
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="h-[calc(100vh-4rem)]">
-        <Hero3D />
-      </div>
-      <main>
-        <AnimatedFeaturedProducts
-          products={products.map((p) => ({
-            id: p.id,
-            name: p.name,
-            price: p.price,
-            image: p.image,
-            categoryName: p.category.name,
-          }))}
-        />
+  const toObject = (product: (typeof products)[number]): MuseumObject => ({
+    id: product.id,
+    name: product.name,
+    image: product.image,
+    categoryName: product.category.name,
+  })
 
-      </main>
-      <Footer />
-    </div>
-  )
+  // Every product gets its own staged act, featured ones first so the
+  // catalogue opens on its strongest pieces.
+  const vitrineObjects = [
+    ...products.filter((product) => product.isFeatured),
+    ...products.filter((product) => !product.isFeatured),
+  ].map(toObject)
+
+  return <HomeExperience vitrineObjects={vitrineObjects} />
 }

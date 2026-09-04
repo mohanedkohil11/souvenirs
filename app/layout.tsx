@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Poppins } from "next/font/google"
 import { Geist_Mono } from "next/font/google"
+import { Cormorant_Garamond } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CartProvider } from "@/lib/cart-context"
 import { Toaster } from "sonner"
@@ -18,6 +19,12 @@ const geistMono = Geist_Mono({
   variable: "--font-mono",
 })
 
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  variable: "--font-display",
+})
+
 export const metadata: Metadata = {
   title: "Sedra - Authentic Travel Souvenirs",
   description: "Discover authentic souvenirs from around the world. Bring home memories from your travels.",
@@ -31,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} ${geistMono.variable} font-sans antialiased`}>
+      <body className={`${poppins.variable} ${geistMono.variable} ${cormorant.variable} font-sans antialiased`}>
         <ThemeProvider>
           <CartProvider>
             {children}

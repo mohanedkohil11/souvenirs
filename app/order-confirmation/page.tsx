@@ -3,11 +3,8 @@
 import { Suspense, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { CheckCircle2, Package, Mail } from "lucide-react"
+import MuseumShell, { MuseumHeading } from "@/components/museum-shell"
+import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_WHATSAPP_URL } from "@/lib/contact"
 
 const DELIVERY_PERIOD_LABELS: Record<string, string> = {
   morning: "Morning (9:00 AM - 12:00 PM)",
@@ -33,17 +30,37 @@ type OrderData = {
   items: { id: string; name: string; price: number; quantity: number }[]
 }
 
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <MuseumShell>
+      <section className="px-6 pb-32 pt-32 md:pt-40">
+        <div className="mx-auto max-w-4xl">{children}</div>
+      </section>
+    </MuseumShell>
+  )
+}
+
+function CollectionLink({ label = "Enter the collection" }: { label?: string }) {
+  return (
+    <Link
+      href="/#collection"
+      className="museum-label inline-flex items-center gap-3 border-b border-[var(--museum-gold)]/40 pb-2 text-[var(--museum-gold)] transition-colors hover:border-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+    >
+      {label}
+      <span aria-hidden="true">→</span>
+    </Link>
+  )
+}
+
 export default function OrderConfirmationPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="max-w-4xl mx-auto px-4 py-20 text-center">
-          <p className="text-muted-foreground">Loading order details...</p>
-        </main>
-        <Footer />
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <Shell>
+          <p className="museum-label text-[var(--muted-foreground)]">Loading your order</p>
+        </Shell>
+      }
+    >
       <OrderConfirmationContent />
     </Suspense>
   )
@@ -71,116 +88,120 @@ function OrderConfirmationContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="max-w-4xl mx-auto px-4 py-20 text-center">
-          <p className="text-muted-foreground">Loading order details...</p>
-        </main>
-        <Footer />
-      </div>
+      <Shell>
+        <p className="museum-label text-[var(--muted-foreground)]">Loading your order</p>
+      </Shell>
     )
   }
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-background">
-        <Header />
-        <main className="max-w-4xl mx-auto px-4 py-20 text-center">
-          <h1 className="text-3xl font-bold mb-4">Order not found</h1>
-          <Link href="/#collection"><Button>Browse Collection</Button></Link>
-        </main>
-        <Footer />
-      </div>
+      <Shell>
+        <MuseumHeading eyebrow="Order" title="We cannot find that order." />
+        <p className="mt-8 max-w-md text-base font-light leading-relaxed text-[var(--muted-foreground)]">
+          The link may be incomplete. If you placed an order, get in touch and we will find it.
+        </p>
+        <div className="mt-10">
+          <CollectionLink />
+        </div>
+      </Shell>
     )
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
+    <Shell>
+      <MuseumHeading eyebrow={`Order ${order.orderNumber}`} title="It's yours." />
 
-      <main className="max-w-4xl mx-auto px-4 py-12">
-        <div className="text-center mb-12">
-          <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto mb-6" />
-          <h1 className="text-5xl font-bold mb-4">Order Confirmed!</h1>
-          <p className="text-xl text-muted-foreground mb-2">Thank you for your purchase</p>
-          <p className="text-muted-foreground">Order #{order.orderNumber}</p>
+      <p className="mt-8 max-w-lg text-base font-light leading-relaxed text-[var(--muted-foreground)]">
+        Nothing has been charged. We will contact you on the number you gave us to arrange payment and
+        delivery, usually within a day.
+      </p>
+
+      {/* What actually happens next. No email is sent, so this does not promise one. */}
+      <dl className="mt-16 grid gap-x-16 border-t border-[var(--border)] sm:grid-cols-2">
+        <div className="border-b border-[var(--border)] py-6">
+          <dt className="museum-label text-[var(--museum-gold-deep)]">Placed under</dt>
+          <dd className="mt-3 text-sm font-light text-[var(--museum-alabaster)]">{order.email}</dd>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="p-6 text-center">
-            <Mail className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="font-bold text-lg mb-2">Confirmation Email</h3>
-            <p className="text-sm text-muted-foreground">
-              A confirmation will be sent to <span className="font-semibold">{order.email}</span>
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Package className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="font-bold text-lg mb-2">Shipping</h3>
-            <p className="text-sm text-muted-foreground">
-              We&apos;ll contact you within 24 hours to arrange payment and shipping
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <CheckCircle2 className="w-12 h-12 text-primary mx-auto mb-4" />
-            <h3 className="font-bold text-lg mb-2">Need Help?</h3>
-            <p className="text-sm text-muted-foreground">Contact our support team at hello@sedra.com</p>
-          </Card>
+        <div className="border-b border-[var(--border)] py-6">
+          <dt className="museum-label text-[var(--museum-gold-deep)]">Any questions</dt>
+          <dd className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm font-light">
+            <a
+              href={CONTACT_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--museum-gold)] underline-offset-4 transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+            >
+              WhatsApp
+            </a>
+            <a
+              href={`tel:${CONTACT_PHONE}`}
+              className="text-[var(--museum-alabaster)] underline-offset-4 transition-colors hover:text-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+            >
+              {CONTACT_PHONE_DISPLAY}
+            </a>
+          </dd>
         </div>
+      </dl>
 
-        <Card className="p-8 mb-12">
-          <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
-
-          <div className="space-y-4 mb-6 pb-6 border-b border-border">
+      <div className="mt-20 grid gap-16 md:grid-cols-2 md:gap-24">
+        <div>
+          <p className="museum-label text-[var(--museum-gold)]">What you chose</p>
+          <ul className="mt-8 space-y-4 border-b border-[var(--border)] pb-6">
             {order.items.map((item) => (
-              <div key={item.id} className="flex justify-between">
-                <span>{item.name} x {item.quantity}</span>
-                <span className="font-semibold">${(item.price * item.quantity).toFixed(2)}</span>
-              </div>
+              <li key={item.id} className="flex items-baseline justify-between gap-4">
+                <span className="min-w-0 text-sm font-light text-[var(--museum-alabaster)]">
+                  {item.name}
+                  <span className="text-[var(--muted-foreground)]"> × {item.quantity}</span>
+                </span>
+                <span className="shrink-0 font-mono text-sm text-[var(--museum-alabaster)]">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </span>
+              </li>
             ))}
-          </div>
+          </ul>
 
-          <div className="space-y-3 mb-6">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Subtotal</span>
-              <span className="font-semibold">${order.subtotal.toFixed(2)}</span>
+          <dl className="mt-6 space-y-4">
+            <div className="flex items-baseline justify-between gap-4">
+              <dt className="museum-label text-[var(--muted-foreground)]">Subtotal</dt>
+              <dd className="font-mono text-sm text-[var(--museum-alabaster)]">${order.subtotal.toFixed(2)}</dd>
             </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Shipping</span>
-              <span className="font-semibold">${order.shipping.toFixed(2)}</span>
+            <div className="flex items-baseline justify-between gap-4">
+              <dt className="museum-label text-[var(--muted-foreground)]">Delivery</dt>
+              <dd className="font-mono text-sm text-[var(--museum-alabaster)]">${order.shipping.toFixed(2)}</dd>
             </div>
-            <div className="border-t border-border pt-3 flex justify-between">
-              <span className="font-bold text-lg">Total</span>
-              <span className="text-3xl font-bold text-primary">${order.total.toFixed(2)}</span>
+            <div className="flex items-baseline justify-between gap-4 border-t border-[var(--border)] pt-5">
+              <dt className="museum-label text-[var(--museum-alabaster)]">Total</dt>
+              <dd className="museum-display text-2xl text-[var(--museum-gold)]">${order.total.toFixed(2)}</dd>
             </div>
-          </div>
-        </Card>
+          </dl>
+        </div>
 
-        <Card className="p-8 mb-12">
-          <h2 className="text-2xl font-bold mb-6">Delivery Details</h2>
-          <div className="text-muted-foreground space-y-2">
-            <p className="font-semibold text-foreground">{order.firstName} {order.lastName}</p>
+        <div>
+          <p className="museum-label text-[var(--museum-gold)]">Where it goes</p>
+          <div className="mt-8 space-y-2 text-sm font-light leading-relaxed text-[var(--muted-foreground)]">
+            <p className="text-[var(--museum-alabaster)]">
+              {order.firstName} {order.lastName}
+            </p>
             <p>{order.address}</p>
             <p>{order.city}, Egypt</p>
-            <p className="mt-3 font-medium text-foreground">
-              Preferred Delivery Time: {DELIVERY_PERIOD_LABELS[order.deliveryPeriod] || order.deliveryPeriod}
-            </p>
           </div>
-        </Card>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/#collection">
-            <Button size="lg" variant="outline">Browse Collection</Button>
-          </Link>
-          <Link href="/">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">Back to Home</Button>
-          </Link>
+          <p className="museum-label mt-8 text-[var(--museum-gold-deep)]">Preferred time</p>
+          <p className="mt-3 text-sm font-light text-[var(--museum-alabaster)]">
+            {DELIVERY_PERIOD_LABELS[order.deliveryPeriod] || order.deliveryPeriod}
+          </p>
         </div>
-      </main>
+      </div>
 
-      <Footer />
-    </div>
+      <div className="mt-20 flex flex-wrap items-center gap-10 border-t border-[var(--border)] pt-10">
+        <CollectionLink label="Keep looking" />
+        <Link
+          href="/"
+          className="museum-label text-[var(--muted-foreground)] transition-colors hover:text-[var(--museum-gold)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--museum-gold)]"
+        >
+          Back to home
+        </Link>
+      </div>
+    </Shell>
   )
 }
