@@ -9,6 +9,8 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Phone, MessageCircle } from "lucide-react"
 import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_WHATSAPP_URL } from "@/lib/contact"
+import { SOCIAL_LINKS } from "@/lib/social"
+import { SocialIcon } from "@/components/social-links"
 import { toast } from "sonner"
 
 export default function ContactPage() {
@@ -89,6 +91,28 @@ export default function ContactPage() {
               {CONTACT_PHONE_DISPLAY}
             </a>
           </Card>
+        </div>
+
+        {/* Social */}
+        <div className="max-w-3xl mx-auto mb-16">
+          <h2 className="text-2xl font-bold text-center mb-6">Follow Sedra</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.platform}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer me"
+                className="group"
+              >
+                <Card className="p-6 text-center transition-colors group-hover:border-primary">
+                  <SocialIcon platform={link.platform} className="w-8 h-8 text-primary mx-auto mb-3" />
+                  <h3 className="font-bold">{link.label}</h3>
+                  <p className="text-sm text-muted-foreground">{link.handle}</p>
+                </Card>
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Contact Form */}

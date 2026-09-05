@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { CartProvider } from "@/lib/cart-context"
 import { Toaster } from "sonner"
 import { getSiteUrl } from "@/lib/site"
+import { SOCIAL_URLS } from "@/lib/social"
 import "./globals.css"
 
 const poppins = Poppins({
@@ -32,6 +33,19 @@ export const metadata: Metadata = {
   title: "Sedra - Authentic Travel Souvenirs",
   description: "Discover authentic souvenirs from around the world. Bring home memories from your travels.",
   generator: "v0.app",
+}
+
+/**
+ * Tells search engines that the social profiles in `lib/social.ts` belong to
+ * this brand, so they can surface them alongside the site.
+ */
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Sedra",
+  url: getSiteUrl(),
+  logo: `${getSiteUrl()}/brand/sedra-mark.png`,
+  sameAs: SOCIAL_URLS,
 }
 
 export default function RootLayout({
@@ -63,6 +77,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <ThemeProvider>
           <CartProvider>
             {children}

@@ -2,6 +2,7 @@ import Link from "next/link"
 import { BrandMark, BrandWordmark } from "@/components/brand/logo"
 import { Phone, MessageCircle } from "lucide-react"
 import { CONTACT_PHONE, CONTACT_PHONE_DISPLAY, CONTACT_WHATSAPP_URL } from "@/lib/contact"
+import SocialLinks from "@/components/social-links"
 
 export default function Footer() {
   return (
@@ -25,6 +26,10 @@ export default function Footer() {
             <p className="text-[oklch(0.82_0.012_90)] text-sm">
               Authentic souvenirs from around the world, bringing memories home.
             </p>
+            <SocialLinks
+              className="mt-6"
+              linkClassName="h-10 w-10 border-[oklch(0.4_0.04_206)] text-[oklch(0.82_0.012_90)] hover:border-[var(--brand-gold)] hover:text-[var(--brand-gold)]"
+            />
           </div>
 
           {/* Company */}
